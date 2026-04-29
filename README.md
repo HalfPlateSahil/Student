@@ -17,6 +17,10 @@ Election rules are local, time-sensitive, and easy to misunderstand. Civic Pathf
 - Share a plan through Gmail.
 - Translate checklist guidance with Google Translate.
 - Search official voter education videos on YouTube.
+- Generate preparation checkpoints with the deadline planner.
+- Check whether pasted election information links look official.
+- Keep progress locally on the user's device.
+- Install and reopen the app as a lightweight PWA.
 - Prepare for a future Google Civic Information API backend.
 
 The app keeps final authority where it belongs: official election offices and verified government services.
@@ -43,6 +47,7 @@ The app follows a low-data civic design:
 - No server-side storage of address, locality, or checklist progress.
 - No collection of voter IDs, government IDs, phone numbers, or financial information.
 - No client-side Google API key exposure.
+- Checklist state is stored only in the browser's local storage.
 - No universal deadline claims; users are guided to verify final details with official authorities.
 
 ## Tech Stack
@@ -61,18 +66,22 @@ The app follows a low-data civic design:
 src/
   components/
     Checklist.tsx
+    DeadlinePlanner.tsx
     DecisionGuide.tsx
     GoogleActionHub.tsx
     Hero.tsx
     ProfilePanel.tsx
     QuestionPanel.tsx
     ReadinessSummary.tsx
+    SourceVerifier.tsx
     Timeline.tsx
   data/
     electionGuide.ts
   lib/
     checklist.ts
     google.ts
+    sourceQuality.ts
+    storage.ts
   types/
     election.ts
   App.tsx
@@ -94,6 +103,15 @@ npm run dev
 npm run lint
 npm run build
 ```
+
+## Quality Features Added For Review
+
+- **Persistent local state**: selected region, situation, locality, checklist progress, election date, and source-check input survive refreshes without any backend storage.
+- **Deadline planner**: users can enter an election date and receive suggested preparation checkpoints.
+- **Source verifier**: users can paste a link and receive plain-language guidance on whether it appears official, discovery-only, or needs verification.
+- **PWA support**: includes `manifest.webmanifest` and a small service worker for repeat access and basic offline resilience.
+- **Cloud Run container**: includes Nginx-based production serving with security headers and Cloud Run `$PORT` support.
+- **Safer Google usage**: real user-controlled Google links are separated from API-key-based Civic Information work, which is documented as a backend-only integration.
 
 ## Cloud Run Deployment
 

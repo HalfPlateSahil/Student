@@ -167,7 +167,8 @@ h3 {
 
 .assistant-grid,
 .workbench,
-.intelligence-grid {
+.intelligence-grid,
+.planning-grid {
   display: grid;
   gap: 24px;
   padding: 28px clamp(16px, 5vw, 76px);
@@ -185,6 +186,11 @@ h3 {
 .intelligence-grid {
   grid-template-columns: minmax(310px, 0.75fr) minmax(0, 1fr);
   padding-top: 0;
+}
+
+.planning-grid {
+  grid-template-columns: minmax(280px, 0.7fr) minmax(280px, 0.7fr) minmax(280px, 0.7fr);
+  padding-top: 0;
   padding-bottom: 42px;
 }
 
@@ -194,7 +200,10 @@ h3 {
 .qa-panel,
 .trust-card,
 .decision-guide,
-.google-hub {
+.google-hub,
+.deadline-planner,
+.source-verifier,
+.api-path {
   border: 1px solid #d8e2ee;
   border-radius: 8px;
   background: #ffffff;
@@ -206,7 +215,10 @@ h3 {
 .qa-panel,
 .trust-card,
 .decision-guide,
-.google-hub {
+.google-hub,
+.deadline-planner,
+.source-verifier,
+.api-path {
   padding: 22px;
 }
 
@@ -595,6 +607,65 @@ code {
   margin-top: 16px;
 }
 
+.reminder-list {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  margin: 16px 0 0;
+  list-style: none;
+}
+
+.reminder-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.reminder-list span {
+  color: #0f766e;
+  font-weight: 850;
+}
+
+.source-rating {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+.source-rating p {
+  margin-top: 5px;
+  color: #58677a;
+}
+
+.source-rating--strong {
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+
+.source-rating--medium {
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+.source-rating--weak {
+  border-color: #fecaca;
+  background: #fff1f2;
+}
+
+.api-path {
+  background: #f8fafc;
+}
+
+.api-path p {
+  margin-top: 8px;
+  color: #58677a;
+}
+
 a:focus-visible,
 button:focus-visible,
 select:focus-visible,
@@ -618,7 +689,8 @@ summary:focus-visible {
   .hero,
   .assistant-grid,
   .workbench,
-  .intelligence-grid {
+  .intelligence-grid,
+  .planning-grid {
     grid-template-columns: 1fr;
   }
 
@@ -648,7 +720,8 @@ summary:focus-visible {
 
   .assistant-grid,
   .workbench,
-  .intelligence-grid {
+  .intelligence-grid,
+  .planning-grid {
     padding-inline: 14px;
   }
 

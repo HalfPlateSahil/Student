@@ -1,0 +1,16 @@
+{
+  "name": "Civic Pathfinder",
+  "short_name": "Pathfinder",
+  "description": "Interactive election process assistant for timelines, official sources, reminders, and safe voting plans.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#0f766e",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
