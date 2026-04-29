@@ -22,6 +22,13 @@ export type SourceLink = {
   href: string
 }
 
+export type GoogleAction = {
+  id: string
+  label: string
+  description: string
+  href: string
+}
+
 export type Question = {
   q: string
   a: string

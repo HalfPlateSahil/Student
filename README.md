@@ -1,34 +1,49 @@
 # Civic Pathfinder
 
-Civic Pathfinder is an interactive election-process assistant that helps people understand voting timelines, registration steps, official sources, and practical next actions in a clear, accessible way.
+Civic Pathfinder is a modern election-process assistant that helps users turn confusing civic information into a clear, personal voting plan. It guides people through registration, deadlines, voting methods, official sources, local office discovery, reminders, and safe next actions without collecting sensitive voter data.
 
-The app is designed for users who may not know where to begin. Instead of presenting a wall of election information, it turns the process into a guided plan: choose a region, describe your voting situation, review the timeline, complete a checklist, and open trusted Google-powered tools when needed.
+Live Vercel deployment: [https://civic-pathfinder.vercel.app](https://civic-pathfinder.vercel.app)
 
-Live app: [https://civic-pathfinder.vercel.app](https://civic-pathfinder.vercel.app)
+## What Makes It Useful
 
-## Purpose
+Election rules are local, time-sensitive, and easy to misunderstand. Civic Pathfinder solves that by giving users a structured civic workflow:
 
-Election rules are often local, deadline-sensitive, and difficult to compare across sources. Civic Pathfinder helps users move safely from uncertainty to action by:
+- Choose a voting region and situation.
+- Understand the election journey through a step-by-step timeline.
+- Build a personalized checklist.
+- Track readiness progress.
+- Open official sources and Google-powered tools.
+- Export a plan for Google Sheets.
+- Share a plan through Gmail.
+- Translate checklist guidance with Google Translate.
+- Search official voter education videos on YouTube.
+- Prepare for a future Google Civic Information API backend.
 
-- Explaining the election journey in plain language.
-- Highlighting the importance of official election authorities.
-- Creating a personalized checklist without storing sensitive personal data.
-- Giving users quick access to Google Maps, Google Calendar, and a Google Civic Information API integration path.
-- Keeping the interface lightweight enough for diverse devices and network conditions.
+The app keeps final authority where it belongs: official election offices and verified government services.
 
-## Features
+## Google Services Integrated
 
-- Region-aware guidance for the United States, India, the United Kingdom, and other regions.
-- Voter-situation profiles for new voters, registered voters, recently moved voters, and overseas or away voters.
-- Timeline map that breaks the election process into clear stages.
-- Interactive checklist with progress tracking and priority markers.
-- Readiness snapshot that summarizes completed actions.
-- Plain-language Q&A for common election-process questions.
-- Official-source cards tailored to the selected region.
-- Google Maps action for nearby election offices or civic service locations.
-- Google Calendar reminder link for deadline review.
-- Google Civic Information API helper URL for future backend integration.
-- Responsive, accessible interface with keyboard-focus states and semantic HTML.
+Civic Pathfinder uses Google services in a safe, credential-conscious way:
+
+- **Google Maps**: opens nearby election offices or civic service centers based on the user's locality.
+- **Google Calendar**: creates a user-controlled reminder for reviewing election deadlines.
+- **Google Search**: builds official-source searches for local election authorities.
+- **Google Translate**: opens checklist text in Google Translate for language support.
+- **YouTube**: searches official voter education content.
+- **Gmail**: creates a shareable election-plan draft.
+- **Google Sheets**: exports the user's checklist as a CSV that opens cleanly in Sheets.
+- **Google Civic Information API**: provides a developer-ready request shape without exposing a real API key in the browser.
+- **Google Cloud Run**: the project includes a production container configuration for Cloud Run hosting.
+
+## Privacy and Safety
+
+The app follows a low-data civic design:
+
+- No sign-in required.
+- No server-side storage of address, locality, or checklist progress.
+- No collection of voter IDs, government IDs, phone numbers, or financial information.
+- No client-side Google API key exposure.
+- No universal deadline claims; users are guided to verify final details with official authorities.
 
 ## Tech Stack
 
@@ -37,9 +52,8 @@ Election rules are often local, deadline-sensitive, and difficult to compare acr
 - Vite
 - CSS
 - Lucide React icons
-- Vercel for deployment
-
-The app is intentionally client-light and asset-light. It avoids checked-in heavy media so the complete GitHub repository can remain comfortably under 10 MB.
+- Vercel deployment
+- Cloud Run-ready Docker and Cloud Build configuration
 
 ## Project Structure
 
@@ -47,6 +61,8 @@ The app is intentionally client-light and asset-light. It avoids checked-in heav
 src/
   components/
     Checklist.tsx
+    DecisionGuide.tsx
+    GoogleActionHub.tsx
     Hero.tsx
     ProfilePanel.tsx
     QuestionPanel.tsx
@@ -65,165 +81,82 @@ src/
   main.tsx
 ```
 
-### Key Files
-
-- `src/data/electionGuide.ts` contains region labels, process timelines, official source links, and Q&A content.
-- `src/lib/checklist.ts` builds the personalized checklist from the selected voter situation and region.
-- `src/lib/google.ts` centralizes Google Maps, Calendar, and Civic Information helper URL generation.
-- `src/components/ProfilePanel.tsx` contains the user profile controls and Google tool actions.
-- `src/components/ReadinessSummary.tsx` summarizes user progress without storing personal data.
-
-## Google Services
-
-### Google Maps
-
-The "Open nearby election offices" action builds a Google Maps search URL from the user's locality or address. It navigates the current tab so the action works reliably in embedded or constrained browsers.
-
-### Google Calendar
-
-The app creates a Google Calendar reminder link that users can open and save themselves. No calendar data is written automatically by the app.
-
-### Google Civic Information API
-
-The app includes a helper URL that demonstrates the shape of a Google Civic Information API request.
-
-Do not place a real Google API key in client-side code. For production Civic Information API usage:
-
-1. Create a small backend endpoint or serverless function.
-2. Store `GOOGLE_CIVIC_INFO_API_KEY` as a server-side environment variable.
-3. Call `https://www.googleapis.com/civicinfo/v2/voterinfo` from the backend.
-4. Return only the fields needed by the UI, such as official offices, polling locations, contests, or election dates.
-5. Add rate limiting and input validation before exposing the endpoint publicly.
-
-## Privacy and Safety
-
-Civic Pathfinder is built around a low-data approach:
-
-- It does not require sign-in.
-- It does not store addresses, locality searches, or checklist progress on a server.
-- It does not collect government IDs, voter IDs, phone numbers, or other sensitive identifiers.
-- It treats official election offices as the source of truth.
-- It avoids making universal claims about deadlines because election rules vary by region and election type.
-
-Users should always verify final deadlines, eligibility, documents, and polling locations with their official election authority.
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 20 or newer recommended
-- npm
-
-### Install Dependencies
+## Local Development
 
 ```bash
 npm install
-```
-
-### Run Locally
-
-```bash
 npm run dev
 ```
 
-The app will start on a local Vite development URL, usually:
-
-```text
-http://127.0.0.1:5173/
-```
-
-## Available Scripts
-
-```bash
-npm run dev
-```
-
-Starts the Vite development server.
+## Validation
 
 ```bash
 npm run lint
-```
-
-Runs ESLint across the project.
-
-```bash
 npm run build
 ```
 
-Runs TypeScript build checks and creates a production build in `dist/`.
+## Cloud Run Deployment
+
+This repository includes:
+
+- `Dockerfile`
+- `nginx.conf.template`
+- `.dockerignore`
+- `cloudbuild.yaml`
+
+The container builds the Vite app and serves the static production output through Nginx on Cloud Run's `$PORT`.
+
+### Deploy From Source
 
 ```bash
-npm run preview
+gcloud run deploy civic-pathfinder \
+  --source . \
+  --region asia-south1 \
+  --allow-unauthenticated
 ```
 
-Serves the production build locally for a final preview.
-
-## Deployment
-
-The app is configured for Vercel using `vercel.json`.
+### Deploy With Cloud Build
 
 ```bash
-npx vercel --prod
+gcloud builds submit --config cloudbuild.yaml
 ```
 
-Current production deployment:
+If this is the first deployment in a Google Cloud project, make sure these APIs are enabled:
 
-[https://civic-pathfinder.vercel.app](https://civic-pathfinder.vercel.app)
+- Cloud Run API
+- Cloud Build API
+- Artifact Registry or Container Registry support
 
-Vercel settings:
+## Production Notes
 
-- Framework: Vite
-- Build command: `npm run build`
-- Output directory: `dist`
+For a real Google Civic Information API integration:
 
-## Accessibility Notes
+1. Add a small backend endpoint or serverless route.
+2. Store `GOOGLE_CIVIC_INFO_API_KEY` as a server-side secret.
+3. Validate and rate-limit address input.
+4. Call `https://www.googleapis.com/civicinfo/v2/voterinfo` from the backend.
+5. Return only the civic fields the UI needs.
 
-The interface uses:
-
-- Semantic sections, headings, forms, buttons, and lists.
-- Visible keyboard focus states.
-- `aria-live` feedback for the Google Maps action.
-- Descriptive labels for form controls.
-- Sufficient layout spacing for mobile and desktop use.
-
-Future accessibility improvements could include saved text-size preferences, translated content, and a full screen-reader audit with automated and manual testing.
-
-## Maintaining Election Content
-
-Election rules change often. When updating content:
-
-- Prefer official election authority sources.
-- Keep guidance general unless a rule is stable and jurisdiction-specific.
-- Avoid hard-coding live deadlines unless there is a content update process.
-- Keep action language practical and verifiable.
-- Review `src/data/electionGuide.ts` first; most user-facing civic content lives there.
+Do not commit API keys or service-account files.
 
 ## Repository Size Strategy
 
 The repository is kept small by:
 
-- Avoiding checked-in photos, videos, and large generated assets.
+- Avoiding checked-in large images or videos.
 - Using lightweight SVG icons and CSS.
-- Loading the hero image remotely instead of storing a large bitmap in the repo.
-- Keeping generated folders such as `node_modules`, `dist`, and `.vercel` out of version control.
+- Loading the hero image remotely.
+- Excluding `node_modules`, `dist`, `.vercel`, and build artifacts.
 
-## Validation Checklist
+## Manual QA Checklist
 
-Before shipping changes, run:
-
-```bash
-npm run lint
-npm run build
-```
-
-Recommended manual checks:
-
-- Change each region and confirm the timeline and official sources update.
-- Change each voter situation and confirm the checklist updates.
-- Toggle checklist items and confirm the readiness percentage changes.
-- Test the Google Maps action with and without a locality.
-- Open the Google Calendar reminder link.
-- Verify the layout on mobile and desktop widths.
+- Change each region and confirm timeline/source updates.
+- Change each voter situation and confirm checklist updates.
+- Toggle checklist items and confirm readiness progress changes.
+- Test Google Maps with and without a locality.
+- Open Calendar, Search, Translate, YouTube, Gmail, Civic Info, and CSV export actions.
+- Verify mobile and desktop layouts.
+- Run `npm run lint` and `npm run build`.
 
 ## License
 

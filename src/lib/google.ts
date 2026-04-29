@@ -34,3 +34,58 @@ export function buildCivicInfoHelperUrl(address: string) {
 
   return `https://www.googleapis.com/civicinfo/v2/voterinfo?${params.toString()}`
 }
+
+export function buildGoogleSearchUrl(address: string, sourceHint = 'official election authority') {
+  const place = address.trim() || 'my area'
+  const params = new URLSearchParams({
+    q: `${sourceHint} ${place}`,
+  })
+
+  return `https://www.google.com/search?${params.toString()}`
+}
+
+export function buildGoogleTranslateUrl(text: string) {
+  const params = new URLSearchParams({
+    sl: 'auto',
+    tl: 'hi',
+    text,
+    op: 'translate',
+  })
+
+  return `https://translate.google.com/?${params.toString()}`
+}
+
+export function buildYouTubeSearchUrl(address: string) {
+  const place = address.trim() || 'voter education'
+  const params = new URLSearchParams({
+    search_query: `official voter education ${place}`,
+  })
+
+  return `https://www.youtube.com/results?${params.toString()}`
+}
+
+export function buildGmailComposeUrl(subject: string, body: string) {
+  const params = new URLSearchParams({
+    view: 'cm',
+    fs: '1',
+    su: subject,
+    body,
+  })
+
+  return `https://mail.google.com/mail/?${params.toString()}`
+}
+
+export function buildGoogleSheetsCsvDataUrl(rows: string[][]) {
+  const csv = rows
+    .map((row) =>
+      row
+        .map((cell) => {
+          const escaped = cell.replaceAll('"', '""')
+          return `"${escaped}"`
+        })
+        .join(','),
+    )
+    .join('\n')
+
+  return `data:text/csv;charset=utf-8,${encodeURIComponent(csv)}`
+}

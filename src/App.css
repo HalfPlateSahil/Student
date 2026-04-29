@@ -108,6 +108,12 @@ h3 {
   background: rgba(15, 23, 42, 0.36);
 }
 
+.button--soft {
+  color: #12335b;
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+}
+
 .hero__panel {
   display: grid;
   gap: 12px;
@@ -160,7 +166,8 @@ h3 {
 }
 
 .assistant-grid,
-.workbench {
+.workbench,
+.intelligence-grid {
   display: grid;
   gap: 24px;
   padding: 28px clamp(16px, 5vw, 76px);
@@ -175,11 +182,19 @@ h3 {
   padding-top: 0;
 }
 
+.intelligence-grid {
+  grid-template-columns: minmax(310px, 0.75fr) minmax(0, 1fr);
+  padding-top: 0;
+  padding-bottom: 42px;
+}
+
 .control-panel,
 .timeline,
 .checklist,
 .qa-panel,
-.trust-card {
+.trust-card,
+.decision-guide,
+.google-hub {
   border: 1px solid #d8e2ee;
   border-radius: 8px;
   background: #ffffff;
@@ -189,7 +204,9 @@ h3 {
 .control-panel,
 .checklist,
 .qa-panel,
-.trust-card {
+.trust-card,
+.decision-guide,
+.google-hub {
   padding: 22px;
 }
 
@@ -507,6 +524,77 @@ code {
   font-weight: 750;
 }
 
+.decision-grid,
+.google-action-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.decision-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.decision-grid article {
+  min-height: 158px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fbfdff;
+}
+
+.decision-grid svg,
+.google-action svg {
+  color: #0f766e;
+}
+
+.decision-grid h3 {
+  margin-top: 12px;
+}
+
+.decision-grid p {
+  margin-top: 7px;
+  color: #58677a;
+}
+
+.google-action-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.google-action {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 10px;
+  min-height: 104px;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #102033;
+  text-decoration: none;
+  background: #ffffff;
+}
+
+.google-action:hover {
+  border-color: #0ea5e9;
+  background: #f0f9ff;
+}
+
+.google-action strong,
+.google-action small {
+  display: block;
+}
+
+.google-action small {
+  margin-top: 4px;
+  color: #58677a;
+}
+
+.export-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
 a:focus-visible,
 button:focus-visible,
 select:focus-visible,
@@ -529,7 +617,8 @@ summary:focus-visible {
 @media (max-width: 920px) {
   .hero,
   .assistant-grid,
-  .workbench {
+  .workbench,
+  .intelligence-grid {
     grid-template-columns: 1fr;
   }
 
@@ -558,11 +647,17 @@ summary:focus-visible {
   }
 
   .assistant-grid,
-  .workbench {
+  .workbench,
+  .intelligence-grid {
     padding-inline: 14px;
   }
 
   .hero__panel-header {
     display: grid;
+  }
+
+  .decision-grid,
+  .google-action-grid {
+    grid-template-columns: 1fr;
   }
 }
